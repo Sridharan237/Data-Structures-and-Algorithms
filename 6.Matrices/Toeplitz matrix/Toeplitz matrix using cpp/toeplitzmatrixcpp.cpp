@@ -1,25 +1,26 @@
-//CPP program for lower triangular matrix using Column major mapping
+//CPP program for toeplitz matrix
+
 #include<iostream>
 
 using namespace std;
 
-class LowerTriangularMatrix
+class ToeplitzMatrix
 {
 private:
     int * A;
     int n;              //no. of elements in the array
 
 public:
-    LowerTriangularMatrix()
+    ToeplitzMatrix()
     {
         n = 2;
-        A = new int[n*(n + 1)/2];
+        A = new int[2*n-1];
     }
 
-    LowerTriangularMatrix(int n)
+    ToeplitzMatrix(int n)
     {
         this->n = n;
-        A = new int[n*(n + 1)/2];
+        A = new int[2*n-1];
     }
 
     void Set(int i, int j, int x);
@@ -30,23 +31,35 @@ public:
 
 // implementing the above declared functions of the above class using scope resolution operator
 
-void LowerTriangularMatrix :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
+void ToeplitzMatrix :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
 {
-    if(i >= j)
+    if(i <= j)
     {
-        A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)] = x;
+        A[j-i] = x;
+    }
+    else if(i > j)
+    {
+        A[n+i-j-1] = x;
     }
 }
 
-int LowerTriangularMatrix :: Get(int i, int j)
+int ToeplitzMatrix :: Get(int i, int j)
 {
-    if(i >= j)
-        return A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)];
-    else 
+    if(i <= j)
+    {
+        return A[j-i];
+    }
+    else if(i > j)
+    {
+        return A[n+i-j-1];
+    }
+    else
+    {
         return 0;
+    }
 }
 
-void LowerTriangularMatrix :: Display()
+void ToeplitzMatrix :: Display()
 {
     int i, j;
 
@@ -54,16 +67,24 @@ void LowerTriangularMatrix :: Display()
     {
         for(j=1;j<=n;j++)
         {
-            if(i >= j)
-                cout<<A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)]<<" ";
+            if(i <= j)
+            {
+                cout<<A[j-i]<<" ";
+            }   
+            else if(i > j)
+            {
+                cout<<A[n+i-j-1]<<" ";
+            }
             else
+            {
                 cout<<"0 ";
+            }
         }
         cout<<endl;
     }
 }
 
-int LowerTriangularMatrix :: getDimension()
+int ToeplitzMatrix :: getDimension()
 {
     return n;
 }
@@ -75,7 +96,7 @@ int main()
     cout<<"Enter the dimension of the matrix : ";
     cin>>d;
 
-    LowerTriangularMatrix ltm(d);
+    ToeplitzMatrix tm(d);
     
     int i, j, x;
 
@@ -86,11 +107,11 @@ int main()
         for(j=1;j<=d;j++)
         {
             scanf("%d", &x);
-            ltm.Set(i, j, x);
+            tm.Set(i, j, x);
         }
     }
     
-    cout<<ltm.Get(2, 3)<<endl;
+    cout<<tm.Get(2, 3)<<endl;
 
-    ltm.Display();
+    tm.Display();
 }

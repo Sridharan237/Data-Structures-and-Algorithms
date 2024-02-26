@@ -1,22 +1,22 @@
-//CPP program for lower triangular matrix using Column major mapping
+//CPP program for symmetric matrix using => lower triangular matrix using Column major mapping
 #include<iostream>
 
 using namespace std;
 
-class LowerTriangularMatrix
+class SymmetricMatrixLowerTriangular
 {
 private:
     int * A;
     int n;              //no. of elements in the array
 
 public:
-    LowerTriangularMatrix()
+    SymmetricMatrixLowerTriangular()
     {
         n = 2;
         A = new int[n*(n + 1)/2];
     }
 
-    LowerTriangularMatrix(int n)
+    SymmetricMatrixLowerTriangular(int n)
     {
         this->n = n;
         A = new int[n*(n + 1)/2];
@@ -30,7 +30,7 @@ public:
 
 // implementing the above declared functions of the above class using scope resolution operator
 
-void LowerTriangularMatrix :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
+void SymmetricMatrixLowerTriangular :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
 {
     if(i >= j)
     {
@@ -38,7 +38,7 @@ void LowerTriangularMatrix :: Set(int i, int j, int x)   // i - row number, j - 
     }
 }
 
-int LowerTriangularMatrix :: Get(int i, int j)
+int SymmetricMatrixLowerTriangular :: Get(int i, int j)
 {
     if(i >= j)
         return A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)];
@@ -46,7 +46,7 @@ int LowerTriangularMatrix :: Get(int i, int j)
         return 0;
 }
 
-void LowerTriangularMatrix :: Display()
+void SymmetricMatrixLowerTriangular :: Display()
 {
     int i, j;
 
@@ -63,7 +63,7 @@ void LowerTriangularMatrix :: Display()
     }
 }
 
-int LowerTriangularMatrix :: getDimension()
+int SymmetricMatrixLowerTriangular :: getDimension()
 {
     return n;
 }
@@ -75,7 +75,7 @@ int main()
     cout<<"Enter the dimension of the matrix : ";
     cin>>d;
 
-    LowerTriangularMatrix ltm(d);
+    SymmetricMatrixLowerTriangular smltm(d);
     
     int i, j, x;
 
@@ -86,11 +86,11 @@ int main()
         for(j=1;j<=d;j++)
         {
             scanf("%d", &x);
-            ltm.Set(i, j, x);
+            smltm.Set(i, j, x);
         }
     }
     
-    cout<<ltm.Get(2, 3)<<endl;
+    cout<<smltm.Get(2, 3)<<endl;
 
-    ltm.Display();
+    smltm.Display();
 }

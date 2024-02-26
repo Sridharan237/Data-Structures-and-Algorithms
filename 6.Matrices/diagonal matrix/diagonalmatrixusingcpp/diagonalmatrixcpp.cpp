@@ -1,4 +1,4 @@
-//C program for diagonal matrix
+//CPP program for diagonal matrix
 #include<iostream>
 
 using namespace std;

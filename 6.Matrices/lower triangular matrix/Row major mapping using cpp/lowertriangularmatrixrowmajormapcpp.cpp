@@ -1,4 +1,4 @@
-//C program for lower triangular matrix using Row major mapping
+//CPP program for lower triangular matrix using Row major mapping
 #include<iostream>
 
 using namespace std;

@@ -1,22 +1,22 @@
-//CPP program for lower triangular matrix using Column major mapping
+//CPP program for Upper triangular matrix using Column major mapping
 #include<iostream>
 
 using namespace std;
 
-class LowerTriangularMatrix
+class UpperTriangularMatrix
 {
 private:
     int * A;
     int n;              //no. of elements in the array
 
 public:
-    LowerTriangularMatrix()
+    UpperTriangularMatrix()
     {
         n = 2;
         A = new int[n*(n + 1)/2];
     }
 
-    LowerTriangularMatrix(int n)
+    UpperTriangularMatrix(int n)
     {
         this->n = n;
         A = new int[n*(n + 1)/2];
@@ -30,23 +30,23 @@ public:
 
 // implementing the above declared functions of the above class using scope resolution operator
 
-void LowerTriangularMatrix :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
+void UpperTriangularMatrix :: Set(int i, int j, int x)   // i - row number, j - column number, x - element
 {
-    if(i >= j)
+    if(i <= j)
     {
-        A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)] = x;
+        A[(j*(j-1)/2)+(i-1)] = x;
     }
 }
 
-int LowerTriangularMatrix :: Get(int i, int j)
+int UpperTriangularMatrix :: Get(int i, int j)
 {
-    if(i >= j)
-        return A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)];
+    if(i <= j)
+        return A[(j*(j-1)/2)+(i-1)];
     else 
         return 0;
 }
 
-void LowerTriangularMatrix :: Display()
+void UpperTriangularMatrix :: Display()
 {
     int i, j;
 
@@ -54,8 +54,8 @@ void LowerTriangularMatrix :: Display()
     {
         for(j=1;j<=n;j++)
         {
-            if(i >= j)
-                cout<<A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)]<<" ";
+            if(i <= j)
+                cout<<A[(j*(j-1)/2)+(i-1)]<<" ";
             else
                 cout<<"0 ";
         }
@@ -63,7 +63,7 @@ void LowerTriangularMatrix :: Display()
     }
 }
 
-int LowerTriangularMatrix :: getDimension()
+int UpperTriangularMatrix :: getDimension()
 {
     return n;
 }
@@ -75,7 +75,7 @@ int main()
     cout<<"Enter the dimension of the matrix : ";
     cin>>d;
 
-    LowerTriangularMatrix ltm(d);
+    UpperTriangularMatrix utm(d);
     
     int i, j, x;
 
@@ -86,11 +86,11 @@ int main()
         for(j=1;j<=d;j++)
         {
             scanf("%d", &x);
-            ltm.Set(i, j, x);
+            utm.Set(i, j, x);
         }
     }
     
-    cout<<ltm.Get(2, 3)<<endl;
+    cout<<utm.Get(2, 3)<<endl;
 
-    ltm.Display();
+    utm.Display();
 }
