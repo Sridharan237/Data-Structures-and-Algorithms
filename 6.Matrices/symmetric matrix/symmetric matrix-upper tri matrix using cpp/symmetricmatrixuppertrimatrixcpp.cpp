@@ -43,7 +43,7 @@ int SymmetricMatrixUpperTriangular :: Get(int i, int j)
     if(i <= j)
         return A[(j*(j-1)/2)+(i-1)];
     else 
-        return 0;
+        return A[i*(i-1)/2+(j-1)];
 }
 
 void SymmetricMatrixUpperTriangular :: Display()
@@ -57,7 +57,7 @@ void SymmetricMatrixUpperTriangular :: Display()
             if(i <= j)
                 cout<<A[(j*(j-1)/2)+(i-1)]<<" ";
             else
-                cout<<"0 ";
+                cout<<A[i*(i-1)/2+(j-1)]<<" ";
         }
         cout<<endl;
     }

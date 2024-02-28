@@ -42,8 +42,8 @@ int SymmetricMatrixLowerTriangular :: Get(int i, int j)
 {
     if(i >= j)
         return A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)];
-    else 
-        return 0;
+    else if(j > i)
+        return smltm.A[smltm.n*(i-1) -(i-2)*(i-1)/2 + (j-i)];
 }
 
 void SymmetricMatrixLowerTriangular :: Display()
@@ -57,7 +57,7 @@ void SymmetricMatrixLowerTriangular :: Display()
             if(i >= j)
                 cout<<A[n*(j-1) - (j-2)*(j-1)/2 + (i-j)]<<" ";
             else
-                cout<<"0 ";
+                cout<<A[n*(i-1) -(i-2)*(i-1)/2 + (j-i)];
         }
         cout<<endl;
     }

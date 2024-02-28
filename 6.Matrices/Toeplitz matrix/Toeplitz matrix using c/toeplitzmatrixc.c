@@ -25,11 +25,11 @@ int Get(struct Matrix tm, int i, int j)
 {
     if(i <= j)
     {
-        return tm->A[j-i];
+        return tm.A[j-i];
     }
     else if(i > j)
     {
-        return tm->A[n+i-j-1];
+        return tm.A[n+i-j-1];
     }
     else
     {
@@ -47,11 +47,11 @@ void Display(struct Matrix tm)
         {
             if(i <= j)
             {
-                printf("%d ", tm->A[j-i]);
+                printf("%d ", tm.A[j-i]);
             }   
             else if(i > j)
             {
-                printf("%d ", tm->A[n+i-j-1]);
+                printf("%d ", tm.A[n+i-j-1]);
             }
             else
             {

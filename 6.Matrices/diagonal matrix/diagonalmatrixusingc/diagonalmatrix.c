@@ -43,11 +43,13 @@ void Display(struct Matrix m)
 int main()
 {
     struct Matrix m;
+
     Set(&m, 1,1, 1);
     Set(&m, 2,2, 2);
     Set(&m, 3,3, 3);
     Set(&m, 4,4, 4);
     Set(&m, 5,5, 5);
+    
     m.n = 5;
     
     printf("%d \n",Get(m, 3, 2));

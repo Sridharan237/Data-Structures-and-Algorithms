@@ -20,8 +20,8 @@ int Get(struct Matrix smltm, int i, int j)
 {
     if(i >= j)
         return smltm.A[smltm.n*(j-1) -(j-2)*(j-1)/2 + (i-j)];
-    else 
-        return 0;
+    else if(j > i)
+        return smltm.A[smltm.n*(i-1) -(i-2)*(i-1)/2 + (j-i)];
 }
 
 void Display(struct Matrix smltm)
@@ -34,8 +34,8 @@ void Display(struct Matrix smltm)
         {
             if(i >= j)
                 printf("%d ", smltm.A[smltm.n*(j-1) -(j-2)*(j-1)/2 + (i-j)]);
-            else
-                printf("0 ");
+            else if(j > i)
+                printf("%d ", smltm.A[smltm.n*(i-1) -(i-2)*(i-1)/2 + (j-i)]);
         }
         printf("\n");
     }
@@ -63,7 +63,7 @@ int main()
         }
     }
     
-    printf("%d \n",Get(smltm, 3, 2));
+    printf("%d \n",Get(smltm, 1, 2));
 
     Display(smltm);
 }

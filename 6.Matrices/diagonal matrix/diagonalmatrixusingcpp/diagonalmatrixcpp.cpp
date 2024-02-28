@@ -65,6 +65,7 @@ void Diagonal :: Display()
 int main()
 {
     Diagonal dm(4);
+    
     dm.Set(1, 1, 1);
     dm.Set(2, 2, 2);
     dm.Set(3, 3, 3);
