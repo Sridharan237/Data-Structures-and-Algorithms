@@ -1,4 +1,4 @@
-//program for 
+//c program for 
 // ->creating sparse matrix
 // ->displaying sparse matrix
 // ->add 2 sparse matrices
@@ -42,7 +42,7 @@ struct Sparse * add(struct Sparse * s1, struct Sparse * s2)
 {
     struct Sparse * sum;
 
-    //creating and pointing sum to heap
+    //creating and pointing sum in heap
     sum = (struct Sparse *)malloc(sizeof(struct Sparse));
 
     sum->m = s1->m;
@@ -79,7 +79,9 @@ struct Sparse * add(struct Sparse * s1, struct Sparse * s2)
 
     for(;j<s2->N;j++)
         sum->element[k++] = s1->element[j];
-
+    
+    sum->N = k;
+    
     return sum;
 } 
 
