@@ -7,3 +7,5 @@ concepts:-
 4.Array ADT
 5.Strings
 6.Matrices
+7.Sparse Matrix and Polynomial Evaluation
+11.Linked List
