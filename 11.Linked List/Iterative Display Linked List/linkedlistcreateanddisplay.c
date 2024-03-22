@@ -1,4 +1,4 @@
-//C program to create and display linked list 
+//C program to create and display linked list iteratively
 #include<stdio.h>
 #include<stdlib.h>
 
