@@ -72,9 +72,9 @@ void display(struct Polynomial p)
     for(i=0;i<p.n;i++)
     {
         if(i==0)
-            printf("%dx%d", p.terms[i].coefficient, p.terms[i].exponent);
+            printf("%dx^%d", p.terms[i].coefficient, p.terms[i].exponent);
         else
-            printf(" + %dx%d", p.terms[i].coefficient, p.terms[i].exponent);
+            printf(" + %dx^%d", p.terms[i].coefficient, p.terms[i].exponent);
     }
 }
 
