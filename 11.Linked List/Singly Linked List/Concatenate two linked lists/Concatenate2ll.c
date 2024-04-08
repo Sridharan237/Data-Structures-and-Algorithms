@@ -354,5 +354,11 @@ int main()
     Display(second);
     printf("\n");
 
+    Concatenate(first, second);
+
+    printf("\nConcatenated\n");
+    Display(third);     // third - concatenated linked list
+    printf("\n");
+
     return 0;
 }
