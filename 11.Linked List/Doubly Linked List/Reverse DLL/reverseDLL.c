@@ -1,4 +1,4 @@
-// c program to delete a node in doubly linked list
+// c program to reverse a doubly linked list
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -148,13 +148,31 @@ int Delete(struct Node *p, int index)
     return x;
 }
 
+// function to reverse a doubly linked list
+void Reverse(struct Node *p)
+{
+    struct Node *temp = NULL;
+
+    while(p != NULL)
+    {
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+
+        p = p->prev;
+
+        if(p != NULL && p->next == NULL)
+            first = p;
+    }
+}
+
 int main()
 {
     int A[] = {1, 2, 3, 4, 5};
 
     create(A, 5);
 
-    Delete(first, 1);
+    Reverse(first);
 
     printf("\nLength : %d\n", Length(first));
 
