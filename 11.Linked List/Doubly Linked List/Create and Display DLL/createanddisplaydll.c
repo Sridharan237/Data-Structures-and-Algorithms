@@ -56,7 +56,10 @@ void Display(struct Node *p)
 {
     while(p)
     {
-        printf("%d<->", p->data);
+        if(p->next != NULL)
+            printf("%d<->", p->data);
+        else
+           printf("%d->", p->data); 
         p = p->next;
     }
     printf("NULL");
