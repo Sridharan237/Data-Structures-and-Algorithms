@@ -1,13 +1,13 @@
-#DSA - Data Structures and Algorithms
-This is Data Structures and Algorithms.
+# DSA - Data Structures and Algorithms
+*This is Data Structures and Algorithms.*
 
-##concepts:-
+## Concepts:-
 1. Essential C and C++ concpets
-5. Recursion
-6. Array Representation
-7. Array ADT
-8. Strings
-9. Matrices
-10. Sparse Matrix and Polynomial Evaluation Using Array
-11. Linked List
-12. Sparse Matrix and Polynomial Evaluation Using Linked List
+2. Recursion
+3. Array Representation
+4. Array ADT
+5. Strings
+6. Matrices
+7. Sparse Matrix and Polynomial Evaluation Using Array
+8. Linked List
+9. Sparse Matrix and Polynomial Evaluation Using Linked List
