@@ -7,5 +7,6 @@ This is Data Structures and Algorithms.
 7.Array ADT
 8.Strings
 9.Matrices
-10.Sparse Matrix and Polynomial Evaluation
+10.Sparse Matrix and Polynomial Evaluation Using Array
 11.Linked List
+12.Sparse Matrix and Polynomial Evaluation Using Linked List
