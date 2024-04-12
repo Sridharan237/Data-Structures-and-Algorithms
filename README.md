@@ -1,5 +1,5 @@
 # DSA - Data Structures and Algorithms
-*This is Data Structures and Algorithms.*
+*This is Data Structures and Algorithms using c and cpp*
 
 ## Concepts:-
 1. Essential C and C++ concpets
