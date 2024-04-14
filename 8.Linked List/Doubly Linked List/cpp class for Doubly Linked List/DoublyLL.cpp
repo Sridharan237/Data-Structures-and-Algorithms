@@ -1,4 +1,4 @@
-// cpp program to perform create, display, find length, insert and delete in Linear Doubly Linear Linked List
+// cpp program to perform create, display, find length, insert and delete in Linear Doubly Linked List
 #include<iostream>
 
 using namespace std;
