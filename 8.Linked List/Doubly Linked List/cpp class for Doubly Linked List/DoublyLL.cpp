@@ -20,7 +20,7 @@ private:
 public:
     DoublyLinkedList(){first = NULL;}   // Default constructor
     DoublyLinkedList(int A[], int n);     // Parameterized constructor - for creating a linked list using an array
-    // ~DoublyLinkedList();
+    ~DoublyLinkedList();
 
     void Display();
     void Insert(int index, int x);
@@ -52,6 +52,20 @@ DoublyLinkedList :: DoublyLinkedList(int A[], int n)    // creating DLL using in
         t->data = A[i];
         t->next = nullptr;
         last = t;
+    }
+}
+
+DoublyLinkedList :: ~DoublyLinkedList()
+{
+    Node* p = first;
+
+    while(p != nullptr)
+    {
+        p = p->next;
+
+        delete first;
+
+        first = p;
     }
 }
 
