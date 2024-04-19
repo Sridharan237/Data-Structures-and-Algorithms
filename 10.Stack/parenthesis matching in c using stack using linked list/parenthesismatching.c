@@ -1,4 +1,4 @@
-// c program to perform parenthesis matching on an expression
+// c program to perform parenthesis matching on an expression but it can match all kinds of brackets like {}, [], ()
 #include<stdio.h>
 #include<string.h>
 #include "stackLL.h"    // including custom header file stack using linked list in c
