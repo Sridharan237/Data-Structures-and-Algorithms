@@ -7,11 +7,13 @@ int isBalanced(char *exp)
 {
     int i;
 
+    char x;
+
     for(i=0;exp[i]!='\0';i++)
     {
-        if(exp[i]=='(')
+        if(exp[i]=='{' || exp[i] == '[' || exp[i] == '(')
             push(exp[i]);
-        else if(exp[i]==')')
+        else if(exp[i]-1==stackTop() || exp[i]-2==stackTop())  
         {
             if(isEmpty())
                 return 0;
@@ -27,7 +29,7 @@ int isBalanced(char *exp)
 
 int main()
 {
-    char *exp = "((a+b)*(c-d))";
+    char *exp = "{[(a+b)*(c-d)]/e";
 
     printf("IsBalanced : %d\n", isBalanced(exp));
 }
