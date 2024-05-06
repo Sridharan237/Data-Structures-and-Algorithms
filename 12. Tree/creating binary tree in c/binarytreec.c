@@ -119,17 +119,56 @@ void postorder(struct Node *p)
     }   
 }
 
+//  function to perform levelorder traversal
+void levelorder(struct Node* root)
+{
+    struct Node* p = NULL;
+
+    struct CircularQueue cq;
+
+    // initializing Circular queue
+
+    cq.front = cq.rear = 0;
+
+    cq.size = 30;
+
+    cq.Q = (struct Node **)malloc(cq.size*sizeof(struct Node*));
+
+    enqueue(&cq, root); 
+
+    while(!isEmpty(cq))
+    {
+        p = dequeue(&cq);
+
+        printf("%d ", p->data);
+
+        if(p && p->lchild)
+            enqueue(&cq, p->lchild);
+        
+        if(p && p->rchild)
+            enqueue(&cq, p->rchild);
+    }
+}
+
 int main()
 {
     create();
 
+    printf("Preorder : \n");
     preorder(root);
 
     printf("\n");
 
+    printf("Inorder : \n");
     inorder(root);
 
     printf("\n");
 
+    printf("Postorder : \n");
     postorder(root);
+
+    printf("\n");
+
+    printf("Levelorder : \n");
+    levelorder(root);
 }
