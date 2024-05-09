@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<queue>
+#include<stack>
 
 using namespace std;
 
@@ -34,6 +35,10 @@ public:
 
     void postorder() {postorder(root);}
     void postorder(Node *p);
+
+    void IterativePreorder();
+    void IterativeInorder();
+    void IterativePostorder();
 };
 
 // implementing the above functions of the class
@@ -138,24 +143,133 @@ void BinaryTree :: postorder(Node* p)
     }   
 }
 
+// Iterative traversals using stack
+//  function to perform preorder iteratively    
+void BinaryTree :: IterativePreorder()
+{
+    Node* p = root;
+
+    stack<Node*> s;
+
+    while(p !=  nullptr || !s.empty())
+    {
+        if(p != nullptr)
+        {
+            printf("%d ", p->data);
+
+            s.push(p);
+
+            p = p->lchild;
+        }
+        else
+        {
+            p = s.top();
+
+            s.pop();
+
+            p = p->rchild;
+        }
+    }
+}
+
+//  function to perform inorder iteratively
+void BinaryTree :: IterativeInorder()
+{
+    Node* p = root;
+
+    stack<Node*> s;
+
+    while(p !=  nullptr || !s.empty())
+    {
+        if(p != nullptr)
+        {
+            s.push(p);
+
+            p = p->lchild;
+        }
+        else
+        {
+            p = s.top();
+
+            s.pop();
+
+            printf("%d ", p->data);
+
+            p = p->rchild;
+        }
+    }
+}
+
+//  function to perform postorder iteratively
+void BinaryTree :: IterativePostorder()
+{
+    Node* p = root;
+
+    long int temp = 0;
+
+    stack<long int> s;
+
+    while(p !=  nullptr || !s.empty())
+    {
+        if(p != nullptr)
+        {
+            s.push(long(p));
+
+            p = p->lchild;
+        }
+        else
+        {
+            temp = s.top();
+
+            s.pop();
+
+            if(temp > 0)    // temp - +ve -> move to rchild
+            {
+                s.push(-temp);      // push address as long int into stack 2 times
+
+                p = ((Node*)temp)->rchild;
+            }
+            else            // temp - -ve -> print data
+            {
+                printf("%d ", ((Node*)(-temp))->data);
+
+                p = nullptr;
+            }
+        }
+    }
+}
+
 int main()
 {
     BinaryTree bt;
 
     bt.createBinaryTree();
 
-    cout<<"Preorder : "<<endl;
-    bt.preorder();
+    // cout<<"Preorder : "<<endl;
+    // bt.preorder();
+
+    // cout<<endl;
+
+    // cout<<"Inorder : "<<endl;
+    // bt.inorder();
+
+    // cout<<endl;
+
+    // cout<<"Postorder : "<<endl;
+    // bt.postorder();
+
+    cout<<"Iterative Preorder : "<<endl;
+    bt.IterativePreorder();
 
     cout<<endl;
 
-    cout<<"Inorder : "<<endl;
-    bt.inorder();
+    cout<<"Iterative Inorder : "<<endl;
+    bt.IterativeInorder();
 
     cout<<endl;
 
-    cout<<"Postorder : "<<endl;
-    bt.postorder();
+    cout<<"Iterative Postorder : "<<endl;
+    bt.IterativePostorder();
 
     return 0;
 }
