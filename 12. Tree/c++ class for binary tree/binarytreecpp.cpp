@@ -41,6 +41,12 @@ public:
     void IterativePostorder();
 
     void Levelorder();
+
+    int level() {level(root);}
+    int level(Node* p);
+
+    int countNodes() {countNodes(root);}
+    int countNodes(Node* p);
 };
 
 // implementing the above functions of the class
@@ -273,8 +279,39 @@ void BinaryTree :: Levelorder()
     }
 }
 
+// function to find the number of levels of a binary tree recursively
+int BinaryTree :: level(Node* p)
+{
+    int x, y;
+
+    x = y = 0;
+
+    if(p)
+    {
+        x = level(p->lchild);
+        y = level(p->rchild);
+
+        if(x > y)
+            return x + 1;
+        else
+            return y + 1;
+    }
+
+    return 0;
+}
+
+// function to find the count of total number of nodes in a binary tree recursively
+int BinaryTree :: countNodes(Node* p)
+{
+    if(p)
+        return countNodes(p->lchild) + countNodes(p->rchild) + 1;
+    return 0;
+}
+
 int main()
 {
+    int height, level;
+
     BinaryTree bt;
 
     bt.createBinaryTree();
@@ -305,8 +342,22 @@ int main()
     cout<<"Iterative Postorder : "<<endl;
     bt.IterativePostorder();
 
+    cout<<endl;
+
     cout<<"Levelorder Traversal : "<<endl;
     bt.Levelorder();
+
+    cout<<endl;
+
+    level = bt.level();
+
+    cout<<"Total No. of Levels : "<<level<<endl;
+
+    height = level - 1;
+
+    cout<<"Height of binary tree : "<<height<<endl;
+
+    cout<<"Total No. of Nodes : "<<bt.countNodes()<<endl;
 
     return 0;
 }
