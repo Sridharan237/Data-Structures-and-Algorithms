@@ -39,6 +39,8 @@ public:
     void IterativePreorder();
     void IterativeInorder();
     void IterativePostorder();
+
+    void Levelorder();
 };
 
 // implementing the above functions of the class
@@ -239,6 +241,38 @@ void BinaryTree :: IterativePostorder()
     }
 }
 
+// function to perform level order traversal
+void BinaryTree :: Levelorder()
+{
+    Node* p = root;
+
+    queue<Node*> q;
+
+    cout<<root->data<<" ";
+
+    q.push(root);
+
+    while(!q.empty())
+    {
+        p = q.front();  
+
+        q.pop();    // performing dequeue operation in queue
+
+        if(p->lchild)
+        {
+            cout<<p->lchild->data<<" ";
+
+            q.push(p->lchild);
+        }
+        if(p->rchild)
+        {
+            cout<<p->rchild->data<<" ";
+
+            q.push(p->rchild);
+        }
+    }
+}
+
 int main()
 {
     BinaryTree bt;
@@ -270,6 +304,9 @@ int main()
 
     cout<<"Iterative Postorder : "<<endl;
     bt.IterativePostorder();
+
+    cout<<"Levelorder Traversal : "<<endl;
+    bt.Levelorder();
 
     return 0;
 }
