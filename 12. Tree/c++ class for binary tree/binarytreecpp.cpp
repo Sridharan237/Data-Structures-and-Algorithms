@@ -47,6 +47,21 @@ public:
 
     int countNodes() {countNodes(root);}
     int countNodes(Node* p);
+
+    int sum() {sum(root);}
+    int sum(Node* p);
+
+    int countLeaf() {countLeaf(root);}
+    int countLeaf(Node* p);
+
+    int countNonLeaf() {countNonLeaf(root);}
+    int countNonLeaf(Node* p);
+
+    int internalNodes() {internalNodes(root);}
+    int internalNodes(Node* p);
+
+    int NodesWithDegree1() {NodesWithDegree1(root);}
+    int NodesWithDegree1(Node* p);
 };
 
 // implementing the above functions of the class
@@ -308,6 +323,62 @@ int BinaryTree :: countNodes(Node* p)
     return 0;
 }
 
+// function to find the total sum of values in all the nodes in a binary tree recursively
+int BinaryTree :: sum(Node* p)
+{
+    if(p)
+        return sum(p->lchild) + sum(p->rchild) + p->data;
+    return 0;
+}
+
+// function to find the count the leaf nodes in a binary tree recursively - Total nodes with degree 0 (or) external nodes
+int BinaryTree :: countLeaf(Node* p)
+{
+    if(p)
+    {
+        if(!p->lchild && !p->rchild)
+            return countLeaf(p->lchild) + countLeaf(p->rchild) + 1;
+        return countLeaf(p->lchild) + countLeaf(p->rchild);
+    }
+    return 0;
+}
+
+// function to find the count the leaf nodes in a binary tree recursively - Total nodes with degree 2
+int BinaryTree :: countNonLeaf(Node* p)
+{
+    if(p)
+    {
+        if(p->lchild && p->rchild)
+            return countNonLeaf(p->lchild) + countNonLeaf(p->rchild) + 1;
+        return countNonLeaf(p->lchild) + countNonLeaf(p->rchild);
+    }
+    return 0;
+}
+
+// function to find the count the internal nodes in a binary tree recursively - Total nodes with degree 2 or 1
+int BinaryTree :: internalNodes(Node* p)
+{
+    if(p)
+    {
+        if(p->lchild || p->rchild)
+            return internalNodes(p->lchild) + internalNodes(p->rchild) + 1;
+        return internalNodes(p->lchild) + internalNodes(p->rchild);
+    }
+    return 0;
+}
+
+// function to find the count the total nodes with degree 1 recursively
+int BinaryTree :: NodesWithDegree1(Node* p)
+{
+    if(p)
+    {   // p->lchild != nullptr ^ p->rchild != nullptr = ((p->lchild != nullptr)&&(p->rchild == nullptr)) || ((p->lchild == nullptr)&&(p->rchild != nullptr))
+        if(p->lchild != nullptr ^ p->rchild != nullptr)
+            return NodesWithDegree1(p->lchild) + NodesWithDegree1(p->rchild) + 1;
+        return NodesWithDegree1(p->lchild) + NodesWithDegree1(p->rchild);
+    }
+    return 0;
+}
+
 int main()
 {
     int height, level;
@@ -329,35 +400,45 @@ int main()
     // cout<<"Postorder : "<<endl;
     // bt.postorder();
 
-    cout<<"Iterative Preorder : "<<endl;
-    bt.IterativePreorder();
+    // cout<<"Iterative Preorder : "<<endl;
+    // bt.IterativePreorder();
 
-    cout<<endl;
+    // cout<<endl;
 
-    cout<<"Iterative Inorder : "<<endl;
-    bt.IterativeInorder();
+    // cout<<"Iterative Inorder : "<<endl;
+    // bt.IterativeInorder();
 
-    cout<<endl;
+    // cout<<endl;
 
-    cout<<"Iterative Postorder : "<<endl;
-    bt.IterativePostorder();
+    // cout<<"Iterative Postorder : "<<endl;
+    // bt.IterativePostorder();
 
-    cout<<endl;
+    // cout<<endl;
 
-    cout<<"Levelorder Traversal : "<<endl;
-    bt.Levelorder();
+    // cout<<"Levelorder Traversal : "<<endl;
+    // bt.Levelorder();
 
-    cout<<endl;
+    // cout<<endl;
 
-    level = bt.level();
+    // level = bt.level();
 
-    cout<<"Total No. of Levels : "<<level<<endl;
+    // cout<<"Total No. of Levels : "<<level<<endl;
 
-    height = level - 1;
+    // height = level - 1;
 
-    cout<<"Height of binary tree : "<<height<<endl;
+    // cout<<"Height of binary tree : "<<height<<endl;
 
-    cout<<"Total No. of Nodes : "<<bt.countNodes()<<endl;
+    // cout<<"Total No. of Nodes : "<<bt.countNodes()<<endl;
+
+    // cout<<"Total sum of all values in nodes : "<<bt.sum()<<endl;
+
+    // cout<<"Total No. of leaf nodes : "<<bt.countLeaf()<<endl;
+
+    // cout<<"Total No. of Non-leaf nodes : "<<bt.countNonLeaf()<<endl;
+
+    cout<<"Total no. of internal nodes : "<<bt.internalNodes()<<endl;
+
+    cout<<"Total no. of nodes with degree 1 : "<<bt.NodesWithDegree1()<<endl;
 
     return 0;
 }
