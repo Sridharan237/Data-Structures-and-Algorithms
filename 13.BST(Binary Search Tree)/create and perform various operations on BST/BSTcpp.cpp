@@ -23,9 +23,17 @@ private:
 public:
     BinarySearchTree() {root = nullptr;}
 
+    Node* getRoot() {return root;}
+
     void IterativeInsert(int key);
+
     Node* RecursiveInsert(int key) {RecursiveInsert(root,key);}
     Node* RecursiveInsert(Node* p, int key);
+
+    Node* RecursiveDelete(Node* p, int key);
+
+    Node* InorderPredecessor(Node* p);
+    Node* InorderSuccessor(Node* p);
 
     bool search(int key);
 
@@ -47,6 +55,9 @@ public:
 
     int level() {level(root);}
     int level(Node* p);
+
+    int height() {return level(root)-1;}
+    int height(Node* p) {return level(p)-1;}
 
     int countNodes() {countNodes(root);}
     int countNodes(Node* p);
@@ -147,6 +158,72 @@ Node* BinarySearchTree :: RecursiveInsert(Node* p, int key)
         else
             p->rchild = RecursiveInsert(p->rchild, key);
     }
+
+    return p;
+}
+
+// function to perform delete operation in a BST recursively
+Node* BinarySearchTree :: RecursiveDelete(Node* p, int key)
+{
+    Node *q = nullptr;
+
+    if(p == nullptr)    // key - not found
+        return nullptr;
+    
+    if(p->lchild == nullptr && p->rchild == nullptr)    // key = leaf node
+    {
+        if(p == root)   // key = `root node` as well as `leaf node`
+            root = nullptr;
+        
+        delete p;
+
+        return nullptr;
+    }   
+
+    // key = nonleaf node
+    if(key < p->data)
+        p->lchild = RecursiveDelete(p->lchild, key);
+    else if(key > p->data)
+        p->rchild = RecursiveDelete(p->rchild, key);
+    else    // perform Inorder predecessor, Inorder successor to delete the key
+    {
+        if(height(p->lchild) > height(p->rchild))   // height of left subtree > height of right subtree - find => Inorder predecessor
+        {
+            q = InorderPredecessor(p->lchild);
+
+            p->data = q->data;  // swapping the data of Inorder predecessor with the current node
+
+            p->lchild = RecursiveDelete(p->lchild, q->data);    // deleting the Inorder predecessor on left subtree of p - pointing node
+        }
+        else    // height of left subtree < height of right subtree - find => Inorder successor
+        {
+            q = InorderSuccessor(p->rchild);
+
+            p->data = q->data;  // swapping the data of Inorder successor with the current node
+
+            p->rchild = RecursiveDelete(p->rchild, q->data);   // deleting the Inorder successor on right subtree of p - pointing node 
+        }
+    }
+    return p;
+}
+
+// function to find Inorder predecessor iteratively 
+Node* BinarySearchTree :: InorderPredecessor(Node* p)
+{
+    while(p->rchild != nullptr) // right most element in left subtree
+        p = p->rchild;
+
+    return p;
+}
+
+
+// function to find Inorder successor iteratively
+Node* BinarySearchTree :: InorderSuccessor(Node* p)
+{
+    while(p->lchild != nullptr) // left most element in right subtree
+        p = p->lchild;
+
+    return p;
 }
 
 // function to perform search operation in a BST iteratively
@@ -184,11 +261,11 @@ void BinarySearchTree :: inorder(Node* p)
 {
     if(p)
     {
-        preorder(p->lchild);
+        inorder(p->lchild);
 
         cout<<p->data<<" ";
         
-        preorder(p->rchild);
+        inorder(p->rchild);
     }   
 }
 
@@ -457,6 +534,12 @@ int main()
         cout<<"Element "<<target<<" Found"<<endl;
     else
         cout<<"Element "<<target<<" Not Found"<<endl;
+
+    bst.RecursiveDelete(bst.getRoot(), 9);
+
+    bst.inorder();
+
+    cout<<endl;
     
     return 0;
 }
