@@ -15,3 +15,4 @@
 11. Queue
 12. Tree(Tree, Binary Tree)
 13. BST(Binary Search Tree)
+14. AVL Tree
