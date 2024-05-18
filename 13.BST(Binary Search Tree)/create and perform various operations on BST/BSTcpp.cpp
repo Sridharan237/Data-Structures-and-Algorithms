@@ -25,6 +25,10 @@ public:
 
     Node* getRoot() {return root;}
 
+    void createFromPreorder(int preorder[], int n);
+
+    void createFromPostorder(int postorder[], int n);
+
     void IterativeInsert(int key);
 
     Node* RecursiveInsert(int key) {RecursiveInsert(root,key);}
@@ -79,6 +83,118 @@ public:
 };
 
 // implementing the above functions of the class
+
+// function to create a BST from preorder
+void BinarySearchTree :: createFromPreorder(int preorder[], int n)
+{
+    stack<Node*> s;
+
+    int i = 0;
+
+    Node *p, *t;
+
+    root = new Node;
+
+    root->data = preorder[i++];     // traverse from index 0 (forward direction)
+
+    root->lchild = root->rchild = nullptr;
+
+    p = root;
+
+    while(i < n)
+    {
+        if(preorder[i] < p->data)
+        {
+            t = new Node;
+
+            t->data = preorder[i++];
+
+            t->lchild = t->rchild = nullptr;
+
+            p->lchild = t;
+
+            s.push(p);
+
+            p = t;
+        }
+        else
+        {
+            if(preorder[i] > p->data && preorder[i] < (!s.empty() ? s.top()->data : INT64_MAX))
+            {
+                t = new Node;
+
+                t->data = preorder[i++];
+
+                t->lchild = t->rchild = nullptr;
+
+                p->rchild = t;
+
+                p = t;
+            }
+            else
+            {
+                p = s.top();
+                s.pop();
+            }
+        }
+    }
+}
+
+// function to create a BST from postorder
+void BinarySearchTree :: createFromPostorder(int postorder[], int n)
+{
+    stack<Node*> s;
+
+    int i = n-1;
+
+    Node *p, *t;
+
+    root = new Node;
+
+    root->data = postorder[i--];    // traverse from index `n-1` (reverse direction)
+
+    root->lchild = root->rchild = nullptr;
+
+    p = root;
+
+    while(i >= 0)
+    {
+        if(postorder[i] > p->data)
+        {
+            t = new Node;
+
+            t->data = postorder[i--];
+
+            t->lchild = t->rchild = nullptr;
+
+            p->rchild = t;
+
+            s.push(p);
+
+            p = t;
+        }
+        else
+        {
+            if(postorder[i] < p->data && postorder[i] > (!s.empty() ? s.top()->data : INT64_MIN))
+            {
+                t = new Node;
+
+                t->data = postorder[i--];
+
+                t->lchild = t->rchild = nullptr;
+
+                p->lchild = t;
+
+                p = t;
+            }
+            else
+            {
+                p = s.top();
+                s.pop();
+            }
+        }
+    }
+}
 
 // function to insert into a BST(Binary Search Tree) iteratively
 void BinarySearchTree :: IterativeInsert(int key)
@@ -510,32 +626,40 @@ int main()
     bst.RecursiveInsert(3);
     bst.RecursiveInsert(6);
 
-    cout<<"Iterative Preorder : ";
+    int preorder[] = {30, 20, 10, 15, 25, 40, 50, 45};
 
-    bst.IterativePreorder();
+    int postorder[] = {15, 10, 25, 20, 45, 50, 40, 30};
 
-    cout<<"\n";
+    // bst.createFromPreorder(preorder, sizeof(preorder)/sizeof(preorder[0]));
 
-    cout<<"Iterative Inorder : ";
+    bst.createFromPostorder(postorder, sizeof(postorder)/sizeof(postorder[0]));
 
-    bst.IterativeInorder();
+    // cout<<"Iterative Preorder : ";
 
-    cout<<"\n";
+    // bst.IterativePreorder();
 
-    cout<<"Iterative Postorder : ";
+    // cout<<"\n";
 
-    bst.IterativePostorder();
+    // cout<<"Iterative Inorder : ";
 
-    cout<<"\n";
+    // bst.IterativeInorder();
+
+    // cout<<"\n";
+
+    // cout<<"Iterative Postorder : ";
+
+    // bst.IterativePostorder();
+
+    // cout<<"\n";
 
     target = 16;
 
-    if(bst.search(target))
-        cout<<"Element "<<target<<" Found"<<endl;
-    else
-        cout<<"Element "<<target<<" Not Found"<<endl;
+    // if(bst.search(target))
+    //     cout<<"Element "<<target<<" Found"<<endl;
+    // else
+    //     cout<<"Element "<<target<<" Not Found"<<endl;
 
-    bst.RecursiveDelete(bst.getRoot(), 9);
+    // bst.RecursiveDelete(bst.getRoot(), 9);
 
     bst.inorder();
 
