@@ -29,14 +29,33 @@ public:
     Node* RecursiveInsert(int key) {RecursiveInsert(root,key);}
     Node* RecursiveInsert(Node* p, int key);
 
+    // Rotations for Insertion of a node in AVL Tree
+    // single rotation
     Node* LLRotation(Node* p);
-    Node* LRRotation(Node* p);
     Node* RRRotation(Node* p);
+    //double rotation
+    Node* LRRotation(Node* p);
     Node* RLRotation(Node* p);
 
     int nodeLevel(Node* p);
 
     int balanceFactor(Node* p);
+
+    void RecursiveDelete(int key) {RecursiveDelete(root, key);}
+    Node* RecursiveDelete(Node* p, int key);
+
+    Node* InorderPredecessor(Node* p);
+    Node* InorderSuccessor(Node* p);
+
+    // Rotations for Deletion of a node in AVL Tree
+    // Left rotations
+    Node* L1Rotation(Node* p) {return LLRotation(p);}
+    Node* Lminus1Rotation(Node* p) {return LRRotation(p);}
+    Node* L0Rotation(Node* p) {return LLRotation(p);}   // can be LLRotation (or) LRRotation
+    // Right rotations
+    Node* R1Rotation(Node* p) {return RLRotation(p);}
+    Node* Rminus1Rotation(Node* p) {return RRRotation(p);}
+    Node* R0Rotation(Node* p) {return RRRotation(p);}   // can be RRRotation (or) RLRotation
 
     bool search(int key);
 
@@ -133,7 +152,7 @@ Node* AVLTree :: RecursiveInsert(Node* p, int key)
     else if(balanceFactor(p) == -2 && balanceFactor(p->rchild) == -1)
         return RRRotation(p);
     else if(balanceFactor(p) == -2 && balanceFactor(p->rchild) == 1)
-        return RLRotation(p);
+        return RRRotation(p);
     
     return p;
 }
@@ -250,6 +269,89 @@ int AVLTree :: balanceFactor(Node* p)
     lr = (p && p->rchild)?p->rchild->level:0;    // lr - level of rightsubtree
 
     return ll-lr;   // bf = level of leftsubtree - level of rightsubtree
+}
+
+// function to perform delete operation in an AVL Tree recursively
+Node* AVLTree :: RecursiveDelete(Node* p, int key)
+{
+    Node *q = nullptr;
+
+    if(p == nullptr)    // key - not found
+        return nullptr;
+    
+    if(p->lchild == nullptr && p->rchild == nullptr)    // key = leaf node
+    {
+        if(p == root)   // key = `root node` as well as `leaf node`
+            root = nullptr;
+        
+        delete p;
+
+        return nullptr;
+    }   
+
+    // key = nonleaf node
+    if(key < p->data)
+        p->lchild = RecursiveDelete(p->lchild, key);
+    else if(key > p->data)
+        p->rchild = RecursiveDelete(p->rchild, key);
+    else    // perform Inorder predecessor, Inorder successor to delete the key
+    {
+        if(height(p->lchild) > height(p->rchild))   // height of left subtree > height of right subtree - find => Inorder predecessor
+        {
+            q = InorderPredecessor(p->lchild);
+
+            p->data = q->data;  // swapping the data of Inorder predecessor with the current node
+
+            p->lchild = RecursiveDelete(p->lchild, q->data);    // deleting the Inorder predecessor on left subtree of p - pointing node
+        }
+        else    // height of left subtree < height of right subtree - find => Inorder successor
+        {
+            q = InorderSuccessor(p->rchild);
+
+            p->data = q->data;  // swapping the data of Inorder successor with the current node
+
+            p->rchild = RecursiveDelete(p->rchild, q->data);   // deleting the Inorder successor on right subtree of p - pointing node 
+        }
+    }
+
+    p->level = nodeLevel(p);
+
+    // Rotations fo Deletion
+    // Left Rotations
+    if(balanceFactor(p) == 2 && balanceFactor(p->lchild) == 1)
+        return L1Rotation(p);   
+    else if(balanceFactor(p) == 2 && balanceFactor(p->lchild) == -1)
+        return Lminus1Rotation(p);  // L-1 Rotation
+    else if(balanceFactor(p) == 2 && balanceFactor(p->lchild) == 0)
+        return L0Rotation(p);
+    //Right Rotations
+    else if(balanceFactor(p) == -2 && balanceFactor(p->rchild) == 1)
+        return R1Rotation(p);
+    else if(balanceFactor(p) == -2 && balanceFactor(p->rchild) == -1)
+        return Rminus1Rotation(p);  // R-1 Rotation
+    else if(balanceFactor(p) == -2 && balanceFactor(p->rchild) == 0)
+        return R0Rotation(p);
+
+    return p;
+}
+
+// function to find Inorder predecessor iteratively 
+Node* AVLTree :: InorderPredecessor(Node* p)
+{
+    while(p->rchild != nullptr) // right most element in left subtree
+        p = p->rchild;
+
+    return p;
+}
+
+
+// function to find Inorder successor iteratively
+Node* AVLTree :: InorderSuccessor(Node* p)
+{
+    while(p->lchild != nullptr) // left most element in right subtree
+        p = p->lchild;
+
+    return p;
 }
 
 // function to perform search operation in an AVL Tree iteratively
@@ -526,9 +628,11 @@ int main()
 
     AVLTree avlt;
 
-    avlt.RecursiveInsert(10);
     avlt.RecursiveInsert(20);
-    avlt.RecursiveInsert(15);
+    avlt.RecursiveInsert(10);
+    avlt.RecursiveInsert(40);
+    avlt.RecursiveInsert(30);
+    avlt.RecursiveInsert(50);
     
     cout<<"Iterative Preorder : ";
 
@@ -557,7 +661,20 @@ int main()
 
     // avlt.RecursiveDelete(avlt.getRoot(), 9);
 
+    cout<<"Recursive Inorder : ";
     avlt.inorder();
+
+    cout<<endl;
+
+    avlt.RecursiveDelete(10);
+
+    cout<<"Recursive Inorder : ";
+    avlt.inorder();
+
+    cout<<endl;
+
+    cout<<"Recursive Preorder : ";
+    avlt.preorder();
 
     cout<<endl;
     
