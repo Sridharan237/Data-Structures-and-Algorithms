@@ -107,10 +107,10 @@ int main()
     
     int *H = new int[n+1];
     
-    // for(int i=1;i<n+1;i++)
-    //     cin>>H[i];
-    
-    H[0] = 0, H[1] = 25, H[2] = 30, H[3] = 40, H[4] = 50, H[5] = 60, H[6] = 15, H[7] = 10, H[8] = 5;
+    H[0] = 0;   // index 0 - will contain 0 as dummy value we don't use that
+
+    for(int i=1;i<n+1;i++)
+        cin>>H[i];
 
     // Insert(H, 2);   // function to insert element at index 2 to heap
     
