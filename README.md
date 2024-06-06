@@ -17,3 +17,4 @@
 13. BST(Binary Search Tree)
 14. AVL Tree
 15. Heap
+16. Sorting Techniques
