@@ -18,3 +18,4 @@
 14. AVL Tree
 15. Heap
 16. Sorting Techniques
+17. Hashing Technique
