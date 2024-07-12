@@ -81,7 +81,7 @@ bool HashTable :: search(int key)
     while(HT[(hashIndex+i)%this->size] != key && HT[(hashIndex+i)%this->size] != 0)
         i++;
 
-    if(HT[i] == 0)
+    if(HT[(hashIndex+i)%this->size] == 0)
         return false;
     else    
         return true;
@@ -97,7 +97,7 @@ int main()
     H.Insert(31);
     H.Insert(58);
 
-    if(H.search(10))
+    if(H.search(1))
         cout<<"key found"<<endl;
     else
         cout<<"key not found"<<endl;
