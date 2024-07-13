@@ -15,6 +15,7 @@ public:
 
     int hashFunction1(int key);     // h1(x) -> Basic Hash Function
 
+    bool isPrime(int number);       // To identify whether number - is prime number (or) not
     int PrimeNumberR();     // R -> prime number less than and nearest to size of hash table
     int hashFunction2(int key);     // h2(x) -> Used by the DoubleHashing function below
 
@@ -50,20 +51,45 @@ int HashTable :: hashFunction1(int key)
     return key%this->size;  // here, 10 - because, size of hashtable = 10
 }
 
-// function to find R -> prime number less than and nearest to size of hash table
+// function to check whether a number is prime/primary number (or) not
+bool HashTable :: isPrime(int number)
+{
+    int i;
+
+    for(i=2;i<=number/2;i++)
+    {
+        if(number%i == 0)
+            return false;
+    }
+
+    return true;
+}
+
+// function to find R -> prime number (or) primary number less than and nearest to size of hash table
 int HashTable :: PrimeNumberR()
 {
-    int R;      // R -> prime number less than and nearest to size of hash table
+    int R;      // R -> prime number (or) primary number less than and nearest to size of hash table
 
     int i;
 
-    return 7;
+    for(i=this->size-1;i>=2;i--)
+    {
+        if(isPrime(i) == true)
+        {
+            R = i;
+            break;
+        }
+    }
+
+    return R;
 }
 
 // function to implement hash function -> h2(x) -> (Modified Hash Function)
 int HashTable :: hashFunction2(int key)
 {
     int R = PrimeNumberR();
+
+    cout<<"R = "<<R<<endl;
 
     return R - (key % R);
 }
@@ -118,9 +144,9 @@ int main()
     H.Insert(15);
     H.Insert(25);
     H.Insert(35);
-    H.Insert(95);
+    H.Insert(65);
 
-    if(H.search(95))
+    if(H.search(65))
         cout<<"key found"<<endl;
     else
         cout<<"key not found"<<endl;
