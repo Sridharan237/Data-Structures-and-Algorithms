@@ -19,3 +19,4 @@
 15. Heap
 16. Sorting Techniques
 17. Hashing Technique
+18. Graphs
